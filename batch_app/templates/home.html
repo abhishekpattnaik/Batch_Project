@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Home</title>
+      <style>
+         .leftdiv
+         {
+         width: 30%;
+         float: left;
+         }
+         .middlediv
+         {
+         width: 30%;
+         float: left;
+         font-size: x-large;
+         }
+         .rightdiv
+         {   
+         width: 30%;
+         float: left;
+         }
+         div
+         {
+         padding : 1%;
+         color: rgb(58, 6, 6);
+         border: rgb(3, 3, 3);
+         }
+         .subdiv{
+        
+         padding : 70px;
+         width: 70%;
+         color: rgb(58, 6, 6);
+         background-image: linear-gradient(to bottom right, rgb(124, 224, 255), rgb(0, 98, 245));
+         box-shadow: 10px 10px 5px grey;
+         }
+         body {
+         padding : 1%;
+         /* font-size: large; */
+         font-size: large;
+         }
+         .header {
+         padding: 50px;
+         text-align: left;
+         /* background-image: linear-gradient(to bottom right,rgb(226, 198, 255), rgb(157, 115, 255)); */
+         background-image: linear-gradient(to bottom right, rgb(157, 224, 245), rgb(73, 146, 255));
+
+         color: rgb(0, 39, 46);
+         font-size: 20px;
+         box-shadow: 10px 10px 5px grey;
+         }
+      </style>
+   </head>
+   <body>
+
+      <header>
+         <div class="header">
+            <h2>Welcome {{ username }}</h2>
+            <a href="/batch/home">Home</a>
+            <a href="/logout">logout</a>
+         </div>
+      </header>
+
+      <div class="leftdiv">
+        <div class="subdiv">
+            <h2>SEARCH</h2>
+            <form method="get">
+               {% csrf_token %}
+               {{  get_form  }}
+               <button type="submit">Search</button>
+            </form>
+         </div><br>
+         <div class='subdiv'>
+            <h2>POST</h2>
+            <form method="post">
+               {% csrf_token %}
+               {{  post_form  }}
+               <button type="submit">Save</button>
+            </form>
+         </div>
+      </div>
+
+      <div class="middlediv">
+         {% if messages %}
+         <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+         </ul>
+         {% endif %}
+         {% if query_list %}
+         <p>Result for {{ query_list.search_keyword }}</p>
+         <p>Total words found = {{ query_list.count }}</p>
+         {% for i in query_list.data %}
+         <li>batch name = {{ i.batch.name }}, batch code = {{ i.batch_code }}</li>
+         {% endfor %}
+         <span>
+            <a href={{ query_list.previous }}>previous</a>
+        </span>
+        <span>
+            <a href={{ query_list.next }}>next</a>
+        </span>
+         {% endif %}
+      </div>
+
+   </body>
+</html>

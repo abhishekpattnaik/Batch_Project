@@ -55,7 +55,7 @@ ROOT_URLCONF = 'batch_acviss.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +67,7 @@ TEMPLATES = [
         },
     },
 ]
-
+LOGIN_REDIRECT_URL = '/batch/home/'
 WSGI_APPLICATION = 'batch_acviss.wsgi.application'
 
 

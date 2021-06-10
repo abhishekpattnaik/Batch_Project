@@ -1,0 +1,35 @@
+.leftdiv
+{
+float: left;
+}
+.rightdiv
+{
+float: left;
+}
+div{
+padding : 1%;
+color: rgb(58, 6, 6);
+
+/* width: 30%; */
+border: rgb(3, 3, 3);
+
+}
+.subdiv{
+padding : 4%;
+width: 50%;
+
+color: rgb(58, 6, 6);
+background-image: linear-gradient(to bottom right, rgb(124, 224, 255), rgb(0, 98, 245));
+box-shadow: 10px 10px 5px grey;
+}
+body {
+padding : 1%;
+background: #38ffee;
+}
+.header {
+text-align: left;
+background: #62c3d4;
+color: rgb(0, 121, 143);
+font-size: 20px;
+box-shadow: 10px 10px 5px grey;
+}
