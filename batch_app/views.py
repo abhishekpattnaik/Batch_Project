@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-import json        
+from datetime import datetime
 from batch_app.models import Batch, Code
 from django.shortcuts import render, redirect 
 from django.contrib.auth import authenticate, login, logout
@@ -40,10 +40,15 @@ def Home(request):
 		if form.is_valid():
 			batch_name = form.cleaned_data.get('batch_name')
 			number_of_codes = form.cleaned_data.get('number_of_codes')
-			_, is_created = create_data(request.user._wrapped, batch_name, number_of_codes)
-
-			if is_created:
-				messages.success(request, f'Batch submission successful for {batch_name} with {number_of_codes} number of codes')
+			if number_of_codes not in range(50000,500000):
+				messages.error(request, f'[ERROR] number of codes must be in between 50000 - 500000')
+			else:
+				start = datetime.now()
+				_, is_created = create_data(request.user._wrapped, batch_name, number_of_codes)
+				total = datetime.now() - start
+				if is_created:
+					msg = f'''Batch submission successful for {batch_name} with {number_of_codes} number of codes,It took {str(total.seconds)}s '''
+					messages.success(request,msg)
 	
 	elif request.method == 'GET':
 		form = SearchKeyword(request.GET)

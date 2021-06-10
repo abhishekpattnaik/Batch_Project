@@ -12,7 +12,7 @@ class Batch(models.Model):
 
 class Code(models.Model):
     batch = models.ForeignKey("batch_app.Batch", on_delete=models.CASCADE, null=True, blank=True)
-    batch_code = models.CharField(max_length=ALPHANUMERICLEN, blank=False, default=''.join(random.choice(string.ascii_lowercase) for i in range(ALPHANUMERICLEN)))
+    batch_code = models.CharField(max_length=ALPHANUMERICLEN, blank=False, default=''.join(random.choice(string.ascii_lowercase) for i in range(ALPHANUMERICLEN)), unique=True)
 
     def __str__(self):
         return self.batch_code

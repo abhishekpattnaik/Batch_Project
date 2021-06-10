@@ -33,3 +33,6 @@ Design and code a simple MVC module using the Django framework to do below.
 * link to home ```http://127.0.0.1:8001/home/```
 
 ## 3. ScreenShots
+![](screenshots/pic1.png)
+![](screenshots/pic2.png)
+![](screenshots/pic3.png)

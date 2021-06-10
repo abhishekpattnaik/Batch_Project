@@ -91,17 +91,13 @@
          </ul>
          {% endif %}
          {% if query_list %}
-         <p>Result for {{ query_list.search_keyword }}</p>
-         <p>Total words found = {{ query_list.count }}</p>
+         <p>Result for {{ query_list.search_keyword }}, Total words found = {{ query_list.count }}</p>
          {% for i in query_list.data %}
          <li>batch name = {{ i.batch.name }}, batch code = {{ i.batch_code }}</li>
          {% endfor %}
-         <span>
             <a href={{ query_list.previous }}>previous</a>
-        </span>
-        <span>
             <a href={{ query_list.next }}>next</a>
-        </span>
+            <p>{{ query_list.page_footer }}</p>
          {% endif %}
       </div>
 

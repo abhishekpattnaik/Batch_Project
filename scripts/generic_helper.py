@@ -25,7 +25,8 @@ def get_paginated_response(request, query_set, pn):
     # total_pages = paginated_response['count']/page_limit
     next_str = '&page={}'.format(str(page_number+1))
     previous_str = '&page={}'.format(str(page_number-1))
-    paginated_response['count'] = len(query_set)
+    paginated_response['page_footer'] = 'Page {}/{}'.format(str(page_number),str(query_set.count()//page_limit))
+    paginated_response['count'] = query_set.count()
     paginated_response['next'] = base_url + next_str
     paginated_response['previous'] = base_url + previous_str
     paginated_response['data'] = query_set[(page_number - 1) * page_limit:((page_number - 1) * page_limit)+page_limit]
@@ -34,10 +35,9 @@ def get_paginated_response(request, query_set, pn):
 def generate_code(length, batch):
     for _ in range(length):
         yield Code(batch = batch,batch_code = uuid.uuid4().hex[:ALPHANUMERICLEN])
-        
+
 def create_data(user, batch_name, number_of_codes):
     batch, _ = Batch.objects.get_or_create(batch_user = user, name = batch_name)
     bulk_update_list = generate_code(number_of_codes, batch = batch)
-    codes = Code.objects.bulk_create(list(bulk_update_list))
+    codes = Code.objects.bulk_create(bulk_update_list)
     return codes, True
-    
